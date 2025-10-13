@@ -1,0 +1,11 @@
+Google Offcampus 
+Duration - 45 min 
+Remarks ;- Interviewer asked no other questions and jumped directly to the DSA question 
+
+Question ; - Find the endpoints of the subbaray such that for all i , j such that A[i] == A[j] , subarray sum [i,j] is maximum 
+First assume positive numbers and 0 . 
+
+Tips :-
+  maintain code cleanilness and proper variable namimg 
+  Take caere of edge cases
+  refer to attached material shared by interviewer for preparation
