@@ -6,6 +6,18 @@ Question ; - Find the endpoints of the subbaray such that for all i , j such tha
 First assume positive numbers and 0 . 
 
 Tips :-
-  maintain code cleanilness and proper variable namimg 
-  Take caere of edge cases
-  refer to attached material shared by interviewer for preparation
+  
+-> Try to take care of edge cases on your own
+-> Practice on Google Docs . Try to keep the spacing consistent as well 
+-> Undersatand the problem and ask clarifying questions before starting to code  
+-> Sometimes the intervitewer asks ambiguous questions so u need to drill down the problem scope 
+-> maintain code cleanilness and proper variable namimg .Can use both types of naming
+   Pascal ( for classes, structs and enums ) 
+   Camel ( for variable and methods)   
+-> if read only function can use const modifier for parameters 
+-> Analyse space ( Auxiliary and input ) and time complexity while discussing tradeoffs)
+-> spacing should be consistent and clear 
+-> first write comments while explaining layout of code to interviewer 
+
+
+Can refer to attached material shared by interviewer for preparation ( mostly see behavioural and sample code )  
