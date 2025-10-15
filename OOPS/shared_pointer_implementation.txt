@@ -1,0 +1,130 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+using namespace std ; 
+// #pragma once 
+
+template<typename T> 
+class shared_ptr{
+    T* ptr =nullptr ; 
+    int* ref_count = nullptr  ; 
+     
+    public : 
+    
+    //default constructor
+    shared_ptr(){
+        cout<<"Constructed"<<endl ; 
+        ptr = new T; 
+        ref_count = new int ;
+        *ref_count = 1; 
+    }
+    
+    // destructor 
+    
+    ~shared_ptr(){
+        cout<<"Instance Destroyed"<<endl ; 
+        if(ref_count) (*ref_count)--; 
+        if((!ref_count)||((*ref_count) ==0 )){
+            if(ptr) delete ptr ;
+            if(ref_count) delete ref_count ; 
+        }  
+    }
+    
+    // copy constructor & assignment
+    
+    shared_ptr(const shared_ptr<T>& other ){
+        cout<<"Instance Copied"<<endl ;
+        ptr = other.ptr ; 
+        ref_count = other.ref_count ; 
+        (*ref_count)++ ; 
+    }
+    
+    shared_ptr<T>& operator=(const shared_ptr<T>& other){
+        if(&other == this ) return *this ; 
+        cout<<"Instance Copied"<<endl ;
+        if( !ref_count   ||   (*ref_count) == 1 ){
+            cout<<"Deleted"<<endl; 
+            delete ptr ;
+            delete ref_count ; 
+        }  
+        ptr = other.ptr ; 
+        ref_count = other.ref_count ; 
+        (*ref_count)++ ;
+        return * this ; 
+    }
+    
+    //move constructor & assignment
+    
+    shared_ptr(shared_ptr<T>&& other) noexcept {
+        cout<<"Moved"<<endl ; 
+        ptr = other.ptr ;
+        ref_count = other.ref_count ;
+
+        other.ptr = nullptr ;
+        other.ref_count = nullptr ; 
+    } 
+    
+    shared_ptr<T>& operator=(shared_ptr<T>&& other) noexcept {
+         cout<<"Moved"<<endl ; 
+        if(&other == this ) return *this ; 
+        if( !ref_count   ||   (*ref_count) == 1 ){
+            delete ptr ;
+            delete ref_count ; 
+        }  
+        ptr = other.ptr ;
+        ref_count = other.ref_count ; 
+        other.ptr = nullptr ;
+        other.ref_count = nullptr ;
+        
+        return *this ; 
+        
+    } 
+    
+    
+    // getting ref cout 
+    
+    int get() const { return *(ref_count) ; } 
+    
+    //deferncing the pointer 
+    
+    T& operator*() const {
+        return *ptr ; 
+    }
+    
+    T* operator->() const {
+        return ptr ; 
+    }
+    
+} ; 
+
+
+
+// Things to keep in mind 
+// 1) we have to keep pointer of counter
+// 2) we need to check ref_count before we delete it 
+
+
+
+
+
+int main()
+{
+   shared_ptr<int> ptr ; 
+   * ptr = 1 ; 
+  shared_ptr<int> ptr2 = move(ptr)  ; 
+  {
+     shared_ptr<int> ptr3 ;
+     ptr3 = move(ptr2)  ; 
+    //  cout<<(ptr2.get())<<endl ; 
+     *ptr3 = 4 ; 
+  }
+//   cout<<(*ptr2)<<endl ; 
+    // cout<<ptr2.get()<<endl ; 
+    return 0;
+}
