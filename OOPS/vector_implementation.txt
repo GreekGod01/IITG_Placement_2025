@@ -1,0 +1,166 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+using namespace std ;
+
+
+template <typename T>
+class vector{
+    private : 
+        size_t m_size ; 
+        size_t m_capacity ; 
+        T* m_data = nullptr ; 
+        
+    public : 
+        //default constructor - 1 
+        
+        vector() : m_size(0) , m_capacity(1) {
+            cout<<"Constructed"<<endl; 
+            m_data = new T[m_capacity];
+        } 
+        
+        //copy constructor - 2 
+        
+        vector(const vector<T>& other ) : m_size(other.size()) , m_capacity(other.m_capacity) { 
+            cout<<"Copied"<<endl; 
+            m_data = new T[m_capacity] ;
+            for(int i = 0 ; i < m_size ; i ++)
+                m_data[i] = other.m_data[i] ; 
+                
+        }
+        
+        //move const - 3 
+        
+        vector(vector<T>&& other ) noexcept {
+           this.m_data = other.m_data ; 
+           other.data = nullptr ; 
+           this.m_size = other.m_size ;
+           other.m_size = 0 ; 
+           this.m_capacity = other.m_capacity ;
+           other.m_capacity = 0 ;  
+        }
+        
+        //copy assignment oper 
+        
+       vector<T>& operator=(const vector<T>& other ){
+            if(other== *(this)) return *this  ; 
+            delete[] m_data  ; 
+            m_size = other.m_size ; 
+            m_capacity = other.m_capacity ; 
+            m_data = new T[m_capacity] ;
+            for(int i = 0 ; i < m_size ; i ++) 
+                m_data[i] = other.m_data[i] ; 
+            return * this ; 
+        }
+        
+        //mov assignment op
+
+        vector<T>& operator=(vector<T>&& other){
+            //stealing the resources and setting the other to nullptr
+            if(other== *(this)) return *this  ; 
+            delete[] m_data ; 
+            this.m_data = other.m_data;
+            other.data = nullptr ; 
+            this.m_size = other.m_size ;
+            this.m_capacity = other.m_capacity ; 
+            return *this ; 
+            
+        }
+        
+        //destructor - 4 
+        
+        ~vector(){
+            delete[] m_data ; 
+        }
+        
+        
+        //size() 
+        size_t size(){
+            return m_size ; 
+        }
+        
+        void reallocation(){
+            size_t new_capactity = 2* m_capacity ; 
+            T* new_data = new T[new_capactity] ; 
+            for(int i = 0 ; i < m_size ; i ++){
+                new_data[i] = move(m_data[i]) ; //can move or copy  
+            }
+            delete[] m_data ; 
+            m_data = new_data ; 
+        }
+        
+        //push_backl() ; 
+        void push_back(const T& element){
+            
+            if(m_size == m_capacity ){
+                reallocation() ; 
+            }
+            m_data[m_size] = element ; 
+            m_size++ ; 
+        }
+        
+      
+        
+        //overload [] 
+        T& operator[](const size_t& ind){
+            return m_data[ind]  ; 
+        }
+    
+        const T& operator[] ( size_t& ind) const { // return type is l value reference for manipulation ; 
+            return m_data[ind]  ; 
+        }
+    
+    
+};
+
+// things to note 
+
+
+//1 ) what is size_t 
+// ans -> basically an unsigned integer used to represent size or count . used because makes use clear and guranatees large enough size 
+
+// 2) you can access private entities of other objects if they belong to the same class 
+
+// 3) why necessary to use const l value reference in copy constructor 
+// In short:
+// const → allows copying from const objects, ensures you don’t modify source
+// & → avoids infinite recursion and unnecessary copies
+
+// 4) why is no noexcept necesssary for move functions 
+// What	Meaning
+// noexcept	Function promises not to throw exceptions
+// noexcept(expr)	Function is noexcept if expr is true
+// Violating it	Throws → calls std::terminate()
+// Common use	Move constructors, destructors, swap, etc.
+// Benefit	Faster code, safer guarantees, better STL behavior
+// If this move constructor were not marked noexcept, then std::vector<MyVec> might copy elements instead of moving them during reallocation 
+//— because the standard library must maintain exception safety guarantees.
+
+//5) [] overloading must return l refernce
+
+//6) const overloading for indexing operator is necessary because 
+//i) if  v is const then only const functions can be used on it 
+//ii) we are returning const l reference becaause 
+//     -> it doesnt make a copy so is faster 
+//     -> prevents accidental modification of data  
+
+
+
+int main()
+{
+    std::cout<<"Hello World";
+    vector<int> v ; 
+    v.push_back(1)  ;
+    v.push_back(2)  ;
+    v.push_back(3)  ;
+    for(int i = 0 ; i < v.size() ; i ++) 
+        cout<<v[i]<<" ";
+
+    return 0;
+}
