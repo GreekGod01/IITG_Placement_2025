@@ -1,0 +1,96 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+using namespace std ; 
+// #pragma once 
+
+template<typename T> 
+class unique_ptr{
+    T* ptr ; 
+    
+    public : 
+    
+    //default constructor
+    unique_ptr(){
+        cout<<"Constructed"<<endl ; 
+        ptr = new T; 
+    }
+    
+    // destructor 
+    
+    ~unique_ptr(){
+        cout<<"Destroyed"<<endl ; 
+        if(ptr) delete ptr ; 
+    }
+    
+    // copy constructor & assignment
+    
+    unique_ptr(const unique_ptr<T>& other ) = delete ;
+    
+    unique_ptr<T>& operator=(const unique_ptr<T>& other) = delete ; 
+    
+    //move constructor & assignment
+    
+    unique_ptr(unique_ptr<T>&& other) noexcept {
+        cout<<"Moved"<<endl ; 
+        ptr = other.ptr ;
+        other.ptr = nullptr ; 
+    } 
+    
+    unique_ptr<T>& operator=(unique_ptr<T>&& other) noexcept {
+        if(&other == this ) return *this ; 
+        if(ptr) delete ptr ; 
+        ptr = other.ptr ;
+        other.ptr = nullptr ;
+        
+        return *this ; 
+        
+    } 
+    
+    //deferncing the pointer 
+    
+    T& operator*() const {
+        return *ptr ; 
+    }
+    
+    T* operator->() const {
+        return ptr ; 
+    }
+    
+} ; 
+
+
+
+// Things to keep in mind 
+// 1) use noexcept for move functions 
+// 2) remember self check in move assignment operator 
+// 3) check if pts valid to prevent error in destructor 
+// 4) we aere making * and & const qualified members so that const smart pointers would also work 
+
+
+
+
+int main()
+{
+    unique_ptr<int> ptr2  ; 
+    *ptr2 = 3 ; 
+    std::cout<<"Hello World";
+    {
+        unique_ptr<int> ptr ; 
+        *ptr = 2 ; 
+         cout<<(*ptr)<<endl ;
+     
+        ptr = move(ptr2)  ;  
+        cout<<(*ptr)<<endl ; 
+    }
+    // cout<<(*ptr2)<<endl ; 
+    
+
+    return 0;
+}
