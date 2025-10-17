@@ -1,0 +1,19 @@
+Duration : 40 mins 
+
+1) First one aptitute question :- Given a 2^n x 2^n grid and L shaped tiles , provide proof and construction of best possible fit ie leaving as few cells untiled 
+
+Answer -> 1 will always remain empty 4^n not divisible by 3 
+can create grid with only one remaining 
+Induction 
+          1) Base case -> single gird 
+          2) Assuming induction hypothesis , break the grid into 4 parts , fill all parts with 1 missing and put the L shaped tile to get perfect 3/4 of the grid . Now put the smaller set in the top right to get 1 missing again 
+
+2) Big endian and little endian ( how will the 2 byte number ABCD be stored ? ) 
+
+3) class B inherits class A privately and class c inherits class B publicly . which members of A visible in c ? 
+
+4) How can you determine size of L1 , L2 and L3 cache ? 
+
+5) what is multicast in networks and how is it accomplished ? is it server driven ? what role does client play in it  ?
+
+6) How are signals ( like kill() or ctrl + c) handled in cpp ? 
