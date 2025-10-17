@@ -1,5 +1,8 @@
 CS fundamentals 
 
+Other good resources - https://github.com/Shivam5022/Knowledgebase-SV
+For dsa questions list - https://github.com/liquidslr/leetcode-company-wise-problems/blob/main/DE%20Shaw%2F5.%20All.csv
+
 
 **CACHE** 
 YouTube playlist by Prof. Harry Porter: https://www.youtube.com/playlist?list=PLbtzT1TYeoMgJ4NcWFuXpnF24fsiaOdGq
