@@ -4,7 +4,7 @@ DSA ques -> Given heads ( of most significant digit) of 2 Linked list in which e
 Additional constraints -> no reversals of singly linked list allowed , no additional data structure allowed 
 
 
-OOPS -> 1) abstract classes use and example 
+OOPS -> 1) abstract classes use and example + interface 
         2)  virtaul functions use example and imple
 
 DBMS -> 1) Data normalisation and details about 3 NF form 
