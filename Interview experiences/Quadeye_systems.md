@@ -148,6 +148,8 @@ When in upright position , water extends to height 6 m
 and when we invert the cylinder, water extends to height 8m
 Find ratio of volume of water and container.
 
+![Quadeye Interview](../../images/question.png)
+
 ### 4)
 
 Asked an abstract puzzle where a man had a ruler , some length of rope , scissors and some hooks.
